@@ -37,9 +37,9 @@ var score = 0;
 var questionIndex = 0;
 
 var timeNow = document.querySelector("#timeNow");
-var timer = document.querySelector("startTime");
-var forQuestions = document.querySelector("forQuestions");
-var custome = document.querySelector("custom");
+var timer = document.querySelector("#startTime");
+var forQuestions = document.querySelector("#forQuestions");
+var custome = document.querySelector("#custom");
 
 var secondsLeft = 50;
 var holdInterval = 0;
@@ -79,7 +79,7 @@ function render(questionIndex) {
     userChoices.forEach(function (newItem) {
         var listItem = document.createElement("li");
         listItem.textContent = newItem;
-        forQuestions.appendChild(listItem);
+        forQuestions.appendChild(ulCreate);
         ulCreate.appendChild(listItem);
         listItem.addEventListener("click", (compare));
     })
@@ -125,7 +125,7 @@ function allDone() {
 
     forQuestions.appendChild(createH1);
 
-    var createP = doecument.createElement("p");
+    var createP = document.createElement("p");
     createP.setAttribute("id", "createP");
 
     forQuestions.appendChild(createP);
@@ -139,5 +139,52 @@ function allDone() {
         forQuestions.appendChild(createP2);
     }
 
-    
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your initials:  ";
+
+    forQuestions.appendChild(createLabel);
+
+
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    forQuestions.appendChild(createInput);
+
+
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "Submit");
+    createSubmit.setAttribute("id", "submit");
+    createSubmit.textContent = "Submit";
+
+    forQuestions.appendChild(createSubmit);
+
+    createSubmit.addEventListener("click", function () {
+        var initials = createInput.value;
+        if (initials === null) {
+            console.log("Nothing Entered!");
+
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: timeRemaining
+            }
+            console.log(finalScore);
+            var allScores = localStorage.getItem("allScores");
+            if (allScores === null) {
+                allScores = [];
+            } else {
+                allScores = JSON.parse(allScores);
+            }
+            allScores.push(finalScore);
+            var newScore = JSON.stringify(allScores);
+            localStorage.setItem("allScores", newScore);
+
+            window.location.replace("highscores.html")
+        }
+    });
+
+}
 
