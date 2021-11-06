@@ -115,4 +115,29 @@ function compare(event) {
     forQuestions.appendChild(createDiv);
 }
 
+function allDone() {
+    forQuestions.innerHTML = "";
+    timeNow.innerHTML = "";
+
+    var createH1 = document.createElement("h1");
+    createH1.setAttribute("id", "createH1");
+    createH1.textContent = "All Done!"
+
+    forQuestions.appendChild(createH1);
+
+    var createP = doecument.createElement("p");
+    createP.setAttribute("id", "createP");
+
+    forQuestions.appendChild(createP);
+
+    if (secondsLeft >=0) {
+        var timeRemaining = secondsLeft;
+        var createP2 = document.createElement("p");
+        clearInterval(holdInterval);
+        createP.textContent = "Your final score is: " + timeRemaining;
+
+        forQuestions.appendChild(createP2);
+    }
+
+    
 
