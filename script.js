@@ -43,4 +43,55 @@ var custome = document.querySelector("custom");
 
 var secondsLeft = 50;
 var holdInterval = 0;
-varPenalty = 0;
+var penalty = 10;
+var ulCreate = document.createElement("ul")
+
+
+timer.addEventListener("click", function(){
+
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
+            secondsLeft--;
+            timeNow.textContent = "Time: " + secondsLeft;
+
+            if (secondsLeft <= 0) {
+                clearInterval(holdInterval);
+                allDone();
+                timeNow.textContent = "Time has Expired";
+            }
+        }, 1000);       
+    }
+    render(questionIndex);
+});
+
+
+
+function render(questionIndex) {
+    forQuestions.innerHTML = "";
+    ulCreate.innerHTML = "";
+
+    for (var i = 0; i < questions.length; i++) {
+        var userQuestion = questions[questionIndex].title;
+        var userChoices = questions[questionIndex].choices;
+        forQuestions.textContent = userQuestion;
+    }
+
+    userChoices.forEach(function (newItem) {
+        var listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        forQuestions.appendChild(listItem);
+        ulCreate.appendChild(listItem);
+        listItem.addEventListener("click", (compare));
+    })
+}
+
+
+function compare(event) {
+    var element = event.target;
+
+    if (element.matches("li")) {
+
+        var createDiv = document.createElement("div");
+        createDiv.setAttribute("id", "createDiv");
+    }
+}
