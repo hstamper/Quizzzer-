@@ -93,5 +93,26 @@ function compare(event) {
 
         var createDiv = document.createElement("div");
         createDiv.setAttribute("id", "createDiv");
+
+        if (element.textContent == questions[questionIndex].answer) {
+            score++
+            createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
+
+        } else {
+            secondsLeft = secondsLeft - penalty;
+            createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+        }
     }
+
+    questionIndex++;
+
+    if (questionIndex >= questions.lenght) {
+        allDone();
+
+    } else {
+        render(questionIndex);
+    }
+    forQuestions.appendChild(createDiv);
 }
+
+
