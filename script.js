@@ -59,6 +59,11 @@ timer.addEventListener("click", function(){
                 allDone();
                 timeNow.textContent = "Time has Expired";
             }
+
+            if (questionIndex >= questions.lenght) {
+                allDone();
+            }
+           
         }, 1000);       
     }
     render(questionIndex);
@@ -70,11 +75,12 @@ function render(questionIndex) {
     forQuestions.innerHTML = "";
     ulCreate.innerHTML = "";
 
-    for (var i = 0; i < questions.length; i++) {
+    
         var userQuestion = questions[questionIndex].title;
+        console.log(userQuestion);
         var userChoices = questions[questionIndex].choices;
         forQuestions.textContent = userQuestion;
-    }
+    
 
     userChoices.forEach(function (newItem) {
         var listItem = document.createElement("li");
@@ -106,18 +112,19 @@ function compare(event) {
 
     questionIndex++;
 
-    if (questionIndex >= questions.lenght) {
+    if (questionIndex == questions.length) {
         allDone();
 
     } else {
         render(questionIndex);
+        
     }
     forQuestions.appendChild(createDiv);
 }
 
 function allDone() {
     forQuestions.innerHTML = "";
-    timeNow.innerHTML = "";
+    
 
     var createH1 = document.createElement("h1");
     createH1.setAttribute("id", "createH1");
@@ -135,6 +142,7 @@ function allDone() {
         var createP2 = document.createElement("p");
         clearInterval(holdInterval);
         createP.textContent = "Your final score is: " + timeRemaining;
+        timeNow.innerHTML = "";
 
         forQuestions.appendChild(createP2);
     }
